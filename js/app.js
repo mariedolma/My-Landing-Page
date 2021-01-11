@@ -54,7 +54,7 @@ function build() {
   const nav = document.querySelector('#navbar__list');
   for (let i = 0; i < sections.length; i++) {
 
-    // construct nav
+    // Construct nav
     const li = document.createElement('li');
     li.innerHTML = sections[i].getAttribute('data-nav');
     li.setAttribute('data-section', sections[i].getAttribute('id'));
@@ -65,7 +65,7 @@ function build() {
       activateLi(e);
     });
 
-    // add image display-er
+    // Add image display-er
     const landing = sections[i].querySelector('.landing__container');
 
     const button = document.createElement('button');
@@ -87,30 +87,31 @@ function build() {
     button.addEventListener('click', (e) => {
       toggleImage(e);
     })
-
   }
   document.querySelector(".main__hero").insertAdjacentHTML('afterend', '<h2>See some of my Art !</h2>');
 }
 
 function toggleImage(e) {
-  let img = e.target.parentElement.querySelector('img');
-  if (img.style.display == "block") {
+  const img = e.target.parentElement.querySelector('img');
+  if (img.style.display === "block") {
     img.style.display = "none";
     e.target.innerHTML = "Open Image";
+    console.log('Image closed.');
   } else {
     img.style.display = "block";
     e.target.innerHTML = "Close Image";
+    console.log('Image opened.');
   }
 }
 
 function activateLi(e) {
   e.preventDefault();
   const navTags = document.querySelectorAll('.active_tags');
-  // remove active from all <li> elems
+  // Remove active from all <li> elems
   for (let i = 0; i < navTags.length; i++) {
     navTags[i].classList.remove('active');
   }
-  // add active to *clicked* <li>
+  // Add active to *clicked* <li>
   e.target.classList.add('active');
 }
 
@@ -118,7 +119,7 @@ function activateLi(e) {
 // Scroll to section on link click
 function scrollHandler(e) {
   e.preventDefault();
-  let sectionId = e.target.getAttribute('data-section');
+  const sectionId = e.target.getAttribute('data-section');
   let offsetTop = window.document.getElementById(sectionId).offsetTop;
   scrollTo({
     top: offsetTop,
@@ -127,21 +128,21 @@ function scrollHandler(e) {
   console.log('Jumped to section.');
 }
 
-// show/hide scroll button
+// Show/hide scroll button
 function handleScrollBtn() {
   const rootEl = document.documentElement;
   const scrollToTopBtn = document.querySelector('.scroll_top_btn');
   // Do something on scroll
   let scrollTotal = rootEl.scrollHeight - rootEl.clientHeight;
   if ((rootEl.scrollTop / scrollTotal) > 0.40) {
-    //show button
+    // Show button
     scrollToTopBtn.style.display = 'block';
   } else {
-    //hide button
+    // Hide button
     scrollToTopBtn.style.display = 'none';
   }
 }
-//scroll to Top
+// Scroll to Top
 function scrollToTop() {
   const rootEl = document.documentElement;
   rootEl.scrollTo({
@@ -160,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM is ready');
   build();
 
-  //Detects when user has stopped scrolling
+  // Detects when user has stopped scrolling
   let scrollStop = function(callback) {
     if (!callback || typeof callback !== 'function') return;
     let isScrolling;
@@ -170,10 +171,11 @@ document.addEventListener('DOMContentLoaded', function() {
       window.clearTimeout(isScrolling);
       // Set timeout to run after scrolling ends
       isScrolling = setTimeout(callback, 100);
-    }, false);
+    }, 
+    false);
   };
 
-  // When user scrolls down, hides the navbar. When the user scrolls up, shows navbar
+  // When user scrolls down, hides the navbar. When user scrolls up, shows navbar
   let preScrollPos = window.pageYOffset;
   window.onscroll = function() {
     let onScrollPos = window.pageYOffset;
